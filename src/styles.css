@@ -1,0 +1,10 @@
+.App {
+  font-family: sans-serif;
+  width: 100%;
+  max-width: 557px;
+  margin: 0 auto;
+}
+.prettyprint {
+  border-radius: 5px;
+  padding: 5px;
+}
