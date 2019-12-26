@@ -4,7 +4,7 @@ const Message = styled.div`
   ${({ owner }) =>
     owner === "me" &&
     css`
-      margin-right: 0px;
+      margin-right: 5px;
       margin-left: auto;
     `}
   height: auto;

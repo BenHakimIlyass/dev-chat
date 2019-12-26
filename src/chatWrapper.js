@@ -14,7 +14,6 @@ const ChatWrapper = styled.div`
     width: 1px;
   }
   &::-webkit-scrollbar-thumb {
-    width: 1px;
     background-color: #969896;
   }
   .prettyprint {

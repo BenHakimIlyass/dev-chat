@@ -13,11 +13,7 @@ import ChatWrapper from "./chatWrapper";
 const App = () => {
   const context = React.useContext(ChatContext);
   const { state, set, codeSyntax } = context;
-  const style = owner => {
-    if (owner === "me") {
-      return { marginRight: 0, marginLeft: "auto" };
-    }
-  };
+
   const write = () => {
     if (state.currentType) {
       if (codeSyntax && state.currentType.slice(0, 6) !== "/code>") {
@@ -60,8 +56,8 @@ const App = () => {
           );
         })}
       </ChatWrapper>
-      <div style={{ display: "flex", width: "100%" }}>
-        <CodeInput type="text" value={state.currentType} />
+      <div style={{ display: "flex", width: "100%", margin: "5px 0px" }}>
+        <CodeInput value={state.currentType} />
         <Button onClick={write}>Send</Button>
       </div>
     </div>
