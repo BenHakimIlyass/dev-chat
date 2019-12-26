@@ -6,22 +6,32 @@ import Button from "./button";
 import Message from "./message";
 import { ChatProvider, ChatContext } from "./chatContext";
 import "./styles.css";
+import styled, { css } from "styled-components";
+
 import ChatWrapper from "./chatWrapper";
 
 const App = () => {
   const context = React.useContext(ChatContext);
   const { state, set, codeSyntax } = context;
+  const style = owner => {
+    if (owner === "me") {
+      return { marginRight: 0, marginLeft: "auto" };
+    }
+  };
   const write = () => {
     if (state.currentType) {
       if (codeSyntax && state.currentType.slice(0, 6) !== "/code>") {
         set({
           ...state,
-          chat: [...state.chat, `/code>${state.currentType}`]
+          chat: [
+            ...state.chat,
+            { msg: `/code>${state.currentType}`, owner: "me" }
+          ]
         });
       } else {
         set({
           ...state,
-          chat: [...state.chat, state.currentType]
+          chat: [...state.chat, { msg: state.currentType, owner: "me" }]
         });
       }
     }
@@ -36,13 +46,15 @@ const App = () => {
         {state.chat.map((item, i) => {
           return (
             <div key={i} style={{ margin: "10px 0px" }}>
-              {item.slice(0, 6) === "/code>" ? (
-                <Code
-                  codeString={item.slice(6, item.length)}
-                  language="javascript"
-                />
+              {item.msg.slice(0, 6) === "/code>" ? (
+                <CodeWrapper owner={item.owner}>
+                  <Code
+                    codeString={item.msg.slice(6, item.msg.length)}
+                    language="javascript"
+                  />
+                </CodeWrapper>
               ) : (
-                <Message>{item}</Message>
+                <Message owner={item.owner}>{item.msg}</Message>
               )}
             </div>
           );
@@ -56,6 +68,16 @@ const App = () => {
   );
 };
 
+const CodeWrapper = styled.div`
+  .prettyprint {
+    ${({ owner }) =>
+      owner === "me" &&
+      css`
+        margin-right: 0px;
+        margin-left: auto;
+      `}
+  }
+`;
 const rootElement = document.getElementById("root");
 render(
   <ChatProvider>

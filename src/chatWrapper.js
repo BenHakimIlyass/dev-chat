@@ -20,6 +20,7 @@ const ChatWrapper = styled.div`
   .prettyprint {
     max-width: 300px;
     padding: 10px;
+    box-shadow: 0px 7px 22px rgba(203, 203, 208, 0.48);
   }
 `;
 export default ChatWrapper;
